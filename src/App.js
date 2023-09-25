@@ -1,11 +1,9 @@
-import CardScrollView from "./components/CardScrollView";
+import Carousel from './components/Carousel';
 
 
 function App() {
   return (
-    <div>
-      <CardScrollView/>
-    </div>
+      <Carousel></Carousel>
   );
 }
 
