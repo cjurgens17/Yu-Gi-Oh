@@ -3,7 +3,7 @@ import {Search} from "react-feather";
 
 function OpenFilterModal({setFilterModal}){
     return (
-        <button onClick={setFilterModal(true)}>
+        <button onClick={() => setFilterModal(true)}>
             <Search/>          
             Filter Cards</button>
     );

@@ -6,11 +6,6 @@ export const PROPERTIES = [
     'Level'
 ];
 
-export const DIRECTION = [
-    'Desc',
-    'Asc'
-];
-
 export const TYPES = [
     'Monster',
     'Spell',

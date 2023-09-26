@@ -1,32 +1,16 @@
 import React from 'react';
-import useSWR from 'swr';
 import Button from '../Button';
 import CarouselImage from '../CarouselImage';
+import { YuGiOhCardContext } from '../YuGiOhCardsContext/YuGiOhCardsContext';
 
-
-const ENDPOINT= 'https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes';
-async function getCards(ENDPOINT){
-    const resp = await fetch(ENDPOINT);
-
-    if(!resp.ok){
-        throw resp
-    }
-
-    const data = await resp.json();
-
-    console.log('data' + data)
-
-    return data;
-}
 
 function Carousel(){
     const[index, setIndex] = React.useState(0);
-    const {data, isLoading, error} = useSWR(ENDPOINT, getCards);
-    const memoizedData = React.useMemo(() => data,[data]);
+    const yuGiOhCards = React.useContext(YuGiOhCardContext)
     
     function showLeft(){
         if(index === 0){
-            setIndex(memoizedData.data.length - 1);
+            setIndex(yuGiOhCards.length - 1);
             return;
         }
         
@@ -34,7 +18,7 @@ function Carousel(){
 }
 
 function showRight(){
-    if(index === memoizedData.data.length - 1){
+    if(index === yuGiOhCards.length - 1){
         setIndex(0);
         return;
     }
@@ -51,9 +35,6 @@ function showRight(){
         alignItems: 'center'
       };
 
-      if(isLoading) return <h1>Loading</h1>
-      if(error) return <h1>Oops Something Went wrong</h1>
-
     return( 
     <div
     style={divStyle}
@@ -62,7 +43,7 @@ function showRight(){
         onClick={showLeft}
         >Left</Button>
 
-        <CarouselImage data={memoizedData} index={index}></CarouselImage>
+        <CarouselImage index={index}></CarouselImage>
 
         <Button
         onClick={showRight}

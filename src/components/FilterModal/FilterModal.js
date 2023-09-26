@@ -1,35 +1,35 @@
 import React from "react";
-import { TYPES } from "constants/properties.js";
+import {TYPES} from "../../constants/properties";
+import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
+import { X } from 'react-feather'
 
 
+//we need to add an escape that resest the state of the modal to false and then add accessibilty options to this
 
-
-function FilterModal({data,setData}) {
+function FilterModal({setFilterModal}) {
   const id = React.useId();
   const [type, setType] = React.useState("");
   const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const yuGiOhCards= React.useContext(YuGiOhCardContext);
 
   function filterData(){
-    let newData = [...data];
+    let newData = [...yuGiOhCards];
     
     //Can add more filters in the future here.
     const filters = [
         {key: 'type', value: type},
         {key: 'name', value:  name},
-        {key: 'description', value: description}
     ];
 
     filters.forEach((filter) => {
         if(filter.value !== ""){
             newData = newData.filter((item) => {
-               return item[filter.key] === filter.value ||
-               (filter.key === 'description' && item[filter.key].includes(filter.value)); 
+               return item[filter.key] === filter.value  
             });
         }
     });
 
-    setData(newData);
+    yuGiOhCards.setYugiOhCards(newData);
   }
 
   return (
@@ -40,13 +40,6 @@ function FilterModal({data,setData}) {
           id={`name-${id}`}
           value={name}
           onChange={(e) => setName(e.target.value)}
-        />
-
-        <label htmlFor={`description-${id}`}>Description/Effect</label>
-        <input
-          id={`description-${id}`}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
         />
 
         <label htmlFor={`type-${id}`}>Type</label>
@@ -63,7 +56,14 @@ function FilterModal({data,setData}) {
             );
           })}
         </select>
+        {" "}
+        <button>Filter</button>
       </form>
+
+          <button>
+            <X onClick={() => setFilterModal(false)}></X>
+          </button>
+
     </div>
   );
 }

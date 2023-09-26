@@ -1,10 +1,11 @@
 import React from "react";
-import { PROPERTIES, DIRECTION } from "../../constants/properties";
+import { PROPERTIES } from "../../constants/properties";
+import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
 function SortCards() {
   const id = React.useId();
-  const [property, setProperty] = React.useState("Default");
-  const [direction, setDirection] = React.useState("Desc");
+  const [property, setProperty] = React.useState("");
+  const yuGiOhCards = React.useContext(YuGiOhCardContext);
 
   return (
     <form
@@ -12,6 +13,19 @@ function SortCards() {
         e.preventDefault();
 
         //update current card list
+         //Can add more filters in the future here.
+    const filters = [
+      {key: 'property', value: property},
+    ];
+
+    filters.forEach((filter) => {
+      if(filter.value !== ""){
+       yuGiOhCards.filter((item) => item[filter.key] === filter.value)
+      }
+      });
+
+      yuGiOhCards.setYuGiOhCards(yuGiOhCards);
+
       }}
     >
       <label htmlFor={`properties-${id}`}>Sort By</label>
@@ -24,19 +38,6 @@ function SortCards() {
           return (
             <option key={index} value={prop}>
               {prop}
-            </option>
-          );
-        })}
-      </select>{" "}
-      <select
-        id={`direction-${id}`}
-        value={direction}
-        onChange={(e) => setDirection(e.target.value)}
-      >
-        {DIRECTION.map((direction, index) => {
-          return (
-            <option key={index} value={direction}>
-              {direction}
             </option>
           );
         })}
