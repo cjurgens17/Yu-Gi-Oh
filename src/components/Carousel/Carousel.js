@@ -10,7 +10,7 @@ function Carousel(){
     
     function showLeft(){
         if(index === 0){
-            setIndex(yuGiOhCards.length - 1);
+            setIndex(yuGiOhCards.memoizedYuGiOhCards.length - 1);
             return;
         }
         
@@ -18,7 +18,7 @@ function Carousel(){
 }
 
 function showRight(){
-    if(index === yuGiOhCards.length - 1){
+    if(index === yuGiOhCards.memoizedYuGiOhCards.length - 1){
         setIndex(0);
         return;
     }

@@ -1,52 +1,54 @@
 import React from "react";
-import useSWR from "swr";
 
 export const YuGiOhCardContext = React.createContext();
 
-const ENDPOINT= 'https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes';
-async function getCards(ENDPOINT){
-    const resp = await fetch(ENDPOINT);
+const ENDPOINT =
+  "https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes";
 
-    if(!resp.ok){
-        throw resp
-    }
+function YuGiOhCardProvider({ children }) {
+  const [status, setStatus] = React.useState("");
+  const [yuGiOhCards, setYuGiOhCards] = React.useState([]);
 
-    const data = await resp.json();
-    return data;
-}
+  React.useEffect(() => {
+    async function getCards(ENDPOINT) {
+      setStatus("loading");
+      try {
+        const resp = await fetch(ENDPOINT);
 
-function YuGiOhCardProvider({children}){
-
-    const {data, isLoading, error} = useSWR(ENDPOINT, getCards);
-    const[yuGiOhCards, setYuGiOhCards ] = React.useState([]);
-
-    React.useEffect(() => {
-        if(data) {
-            setYuGiOhCards(data.data);
+        if (!resp.ok) {
+          throw resp;
         }
-    },[data]);
 
-    console.log(data)
-    console.log({yuGiOhCards})
-
-    const memoizedYuGiOhCards = React.useMemo(() => {
-        return yuGiOhCards
-   },[yuGiOhCards]);
-
-    if(isLoading){
-        //do some logic which well add later: Just add Loading for now
-        return <h1>Loading</h1>
+        const data = await resp.json();
+        setStatus("success");
+        if (data) setYuGiOhCards(data.data);
+      } catch (error) {
+        setStatus("error");
+        console.error(error);
+      }
     }
 
-    if(error){
-        //do some logic later, for now just add error: 
-        return <h1>Error</h1>
-    }
+    getCards(ENDPOINT);
+  }, []);
 
-    return (
-        <YuGiOhCardContext.Provider value={{memoizedYuGiOhCards, setYuGiOhCards}}>
-            {children}
-        </YuGiOhCardContext.Provider>
-    );
+  const memoizedYuGiOhCards = React.useMemo(() => {
+    return yuGiOhCards;
+  }, [yuGiOhCards]);
+
+  if (status === "loading") {
+    //do some logic which well add later: Just add Loading for now
+    return <h1>Loading</h1>;
+  }
+
+  if (status === "error") {
+    //do some logic later, for now just add error:
+    return <h1>Error</h1>;
+  }
+
+  return (
+    <YuGiOhCardContext.Provider value={{ memoizedYuGiOhCards, setYuGiOhCards }}>
+      {children}
+    </YuGiOhCardContext.Provider>
+  );
 }
 export default YuGiOhCardProvider;

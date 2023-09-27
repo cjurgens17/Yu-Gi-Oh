@@ -1,7 +1,9 @@
 import React from "react";
 import {TYPES} from "../../constants/properties";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
-import { X } from 'react-feather'
+import { X } from 'react-feather';
+import FocusLock from 'react-focus-lock';
+import { RemoveScroll } from 'react-remove-scroll';
 
 
 //we need to add an escape that resest the state of the modal to false and then add accessibilty options to this
@@ -11,6 +13,24 @@ function FilterModal({setFilterModal}) {
   const [type, setType] = React.useState("");
   const [name, setName] = React.useState("");
   const yuGiOhCards= React.useContext(YuGiOhCardContext);
+  const exit = React.useRef();
+
+//escape modal of escape keypress
+  React.useEffect(() => {
+    function escape(e){
+      if(e.code === 'Escape'){
+        setFilterModal(false);
+      }
+    }
+
+    window.addEventListener('keydown', escape)
+
+    return () => window.removeEventListener('keydown', escape);
+  },[setFilterModal]);
+
+
+
+
 
   function filterData(){
     let newData = [...yuGiOhCards];
@@ -33,7 +53,11 @@ function FilterModal({setFilterModal}) {
   }
 
   return (
-    <div>
+    <FocusLock>
+      <RemoveScroll>
+    <div aria-modal="true"
+      role="dialog"
+    >
       <form onSubmit={filterData}>
         <label htmlFor={`name-${id}`}>Name</label>
         <input
@@ -61,10 +85,12 @@ function FilterModal({setFilterModal}) {
       </form>
 
           <button>
-            <X onClick={() => setFilterModal(false)}></X>
+            <X ref={exit} onClick={() => setFilterModal(false)}/>
           </button>
 
     </div>
+    </RemoveScroll>
+    </FocusLock>
   );
 }
 
