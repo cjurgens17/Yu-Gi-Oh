@@ -1,7 +1,19 @@
 .cardWrapper {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 4px;
-    border: 2px solid black;
+    display: grid;
+    grid-template-areas: 
+    "card details"
+    ;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.card {
+    grid-area: card;
+    justify-self: center;
+}
+
+.details {
+    grid-area: details;
+    justify-self: start;
+    align-self: center;
 }

@@ -6,11 +6,11 @@ import { YuGiOhCardContext } from '../YuGiOhCardsContext/YuGiOhCardsContext';
 
 function Carousel(){
     const[index, setIndex] = React.useState(0);
-    const yuGiOhCards = React.useContext(YuGiOhCardContext)
+    const {memoizedYuGiOhCards} = React.useContext(YuGiOhCardContext)
     
     function showLeft(){
         if(index === 0){
-            setIndex(yuGiOhCards.memoizedYuGiOhCards.length - 1);
+            setIndex(memoizedYuGiOhCards.length - 1);
             return;
         }
         
@@ -18,7 +18,7 @@ function Carousel(){
 }
 
 function showRight(){
-    if(index === yuGiOhCards.memoizedYuGiOhCards.length - 1){
+    if(index === memoizedYuGiOhCards.length - 1){
         setIndex(0);
         return;
     }

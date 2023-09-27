@@ -3,7 +3,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: scroll;
     height: 100%;
     width: 100%;
+}
+
+ol {
+    list-style: none;
+    height: 100%;
+}
+
+li {
+    padding: var(--spacing)
 }

@@ -1,38 +1,47 @@
 import React from "react";
 import { PROPERTIES } from "../../constants/properties";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
+import styles from "./SortCards.module.css";
 
-function SortCards() {
+function SortCards({ sortedCards, setSortedCards }) {
   const id = React.useId();
   const [property, setProperty] = React.useState("");
-  const yuGiOhCards = React.useContext(YuGiOhCardContext);
+ const { memoizedYuGiOhCards } = React.useContext(YuGiOhCardContext);
+
+  function sortByProperty(property) {
+    //possibly use switch for modular and future additions
+    let nextSortedCards;
+
+    if (property === "Default") {
+      nextSortedCards = [...memoizedYuGiOhCards];
+      setSortedCards(nextSortedCards);
+      return;
+    }
+
+    if (typeof sortedCards[0]?.property === "string") {
+      nextSortedCards = [...sortedCards].sort((a, b) =>
+        a.property.localeCompare(b.property)
+      );
+      setSortedCards(nextSortedCards);
+      return;
+    }
+
+    nextSortedCards = [...sortedCards].sort((a, b) => a.property - b.property);
+    setSortedCards(nextSortedCards);
+  }
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        //update current card list
-         //Can add more filters in the future here.
-    const filters = [
-      {key: 'property', value: property},
-    ];
-
-    filters.forEach((filter) => {
-      if(filter.value !== ""){
-       yuGiOhCards.filter((item) => item[filter.key] === filter.value)
-      }
-      });
-
-      yuGiOhCards.setYuGiOhCards(yuGiOhCards);
-
-      }}
-    >
-      <label htmlFor={`properties-${id}`}>Sort By</label>
+    <form>
+      <label htmlFor={`properties-${id}`} className={styles.sortBy}>
+        Sort By
+      </label>
       <select
         id={`properties-${id}`}
         value={property}
-        onChange={(e) => setProperty(e.target.value)}
+        onChange={(e) => {
+          setProperty(e.target.value);
+          sortByProperty(property);
+        }}
       >
         {PROPERTIES.map((prop, index) => {
           return (

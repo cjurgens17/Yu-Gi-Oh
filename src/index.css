@@ -40,6 +40,11 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
+
+#root {
+  --spacing: 8px;
+  --font-size: 1.15rem;
+}
 #root,
 #__next {
   isolation: isolate;

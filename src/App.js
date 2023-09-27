@@ -4,10 +4,13 @@ import Carousel from "./components/Carousel";
 import YuGiOhCardProvider from "./components/YuGiOhCardsContext/YuGiOhCardsContext";
 import React from "react";
 import CardScrollView from "./components/CardScrollView/CardScrollView";
+import CardResults from "./components/CardResults";
+import SortCards from "./components/SortCards/SortCards";
 import "./App.css";
 
 function App() {
   const [filterModal, setFilterModal] = React.useState(false);
+  const [sortedCards, setSortedCards] = React.useState([]);
 
   return (
     <YuGiOhCardProvider>
@@ -15,15 +18,23 @@ function App() {
         {filterModal && (
           <FilterModal setFilterModal={setFilterModal}></FilterModal>
         )}
-        <OpenFilterModal setFilterModal={setFilterModal}></OpenFilterModal>
-        <header className="f">
+        <header className="filter">
           <h1>Yugioh</h1>
         </header>
-        <body className="d">
+        <main className="details">
           <Carousel></Carousel>
-        </body>
-        <aside className="c">
-          <CardScrollView></CardScrollView>
+        </main>
+        <aside>
+          <section className="header">
+            <CardResults />
+            <OpenFilterModal setFilterModal={setFilterModal} />
+          </section>
+          <section className="sort">
+            <SortCards sortedCards={sortedCards} setSortedCards={setSortedCards}/>
+          </section>
+          <section className="cards">
+            <CardScrollView sortedCards={sortedCards} setSortedCards={setSortedCards}/>
+          </section>
         </aside>
       </div>
     </YuGiOhCardProvider>

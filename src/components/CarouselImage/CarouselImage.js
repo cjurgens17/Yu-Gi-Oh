@@ -4,8 +4,8 @@ import {YuGiOhCardContext}  from '../YuGiOhCardsContext/YuGiOhCardsContext';
 
 function CarouselImage({index}){
 
-    const yuGiOhCards = React.useContext(YuGiOhCardContext)
-    console.log("carousel image", yuGiOhCards)
+    const {memoizedYuGiOhCards} = React.useContext(YuGiOhCardContext)
+    console.log("carousel image", memoizedYuGiOhCards);
     const[currImage, setCurrImage] = React.useState('');
 
     const imgStyles = {
@@ -14,17 +14,17 @@ function CarouselImage({index}){
     }
 
     React.useEffect(() => {
-        setCurrImage(yuGiOhCards.memoizedYuGiOhCards[index]?.card_images[0]?.image_url)
-    },[index, yuGiOhCards])
+        setCurrImage(memoizedYuGiOhCards[index]?.card_images[0]?.image_url)
+    },[index, memoizedYuGiOhCards])
 
-    console.log(yuGiOhCards.memoizedYuGiOhCards[index]?.card_images[0]?.image_url);
+    console.log(memoizedYuGiOhCards[index]?.card_images[0]?.image_url);
 
     return (
         <div>
             <img className={imgStyles} alt="yugioh card in carousel" src={currImage}/>
         </div>
        
-    )
+    );
 }
 
 export default CarouselImage;
