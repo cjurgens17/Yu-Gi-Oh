@@ -12,7 +12,7 @@ function FilterModal({setFilterModal}) {
   const id = React.useId();
   const [type, setType] = React.useState("");
   const [name, setName] = React.useState("");
-  const yuGiOhCards= React.useContext(YuGiOhCardContext);
+  const {yuGiOhCards, setYugiOhCards}= React.useContext(YuGiOhCardContext);
   const exit = React.useRef();
 
 //escape modal of escape keypress
@@ -31,7 +31,7 @@ function FilterModal({setFilterModal}) {
 
 
 
-
+//not working right now--potentially turn this into api request and rest the yugioh cards
   function filterData(){
     let newData = [...yuGiOhCards];
     
@@ -49,7 +49,7 @@ function FilterModal({setFilterModal}) {
         }
     });
 
-    yuGiOhCards.setYugiOhCards(newData);
+    setYugiOhCards(newData);
   }
 
   return (

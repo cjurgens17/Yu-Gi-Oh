@@ -3,8 +3,8 @@ import { YuGiOhCardContext } from '../YuGiOhCardsContext/YuGiOhCardsContext';
 
 function CardResults(){
 
-    const {memoizedYuGiOhCards} = React.useContext(YuGiOhCardContext);
-    const result = memoizedYuGiOhCards.length;
+    const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
+    const result = yuGiOhCards.length;
 
     return (
         <p>Result: {result} of {result} cards </p>

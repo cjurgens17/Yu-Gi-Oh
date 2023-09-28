@@ -1,5 +1,4 @@
 export const PROPERTIES = [
-    'Default',
     'Name',
     'ATK',
     'DEF',
@@ -11,4 +10,9 @@ export const TYPES = [
     'Spell',
     'Trap', 
     'Skill'
-]
+];
+
+export const ORDER = [
+    'Ascending',
+    'Descending'
+];

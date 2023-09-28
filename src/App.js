@@ -10,7 +10,6 @@ import "./App.css";
 
 function App() {
   const [filterModal, setFilterModal] = React.useState(false);
-  const [sortedCards, setSortedCards] = React.useState([]);
 
   return (
     <YuGiOhCardProvider>
@@ -27,13 +26,13 @@ function App() {
         <aside>
           <section className="header">
             <CardResults />
-            <OpenFilterModal setFilterModal={setFilterModal} />
+            <OpenFilterModal setFilterModal={setFilterModal}/>
           </section>
           <section className="sort">
-            <SortCards sortedCards={sortedCards} setSortedCards={setSortedCards}/>
+            <SortCards/>
           </section>
           <section className="cards">
-            <CardScrollView sortedCards={sortedCards} setSortedCards={setSortedCards}/>
+          <CardScrollView/>
           </section>
         </aside>
       </div>

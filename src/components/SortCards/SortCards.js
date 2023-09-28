@@ -1,46 +1,46 @@
 import React from "react";
-import { PROPERTIES } from "../../constants/properties";
+import { PROPERTIES, ORDER } from "../../constants/properties";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 import styles from "./SortCards.module.css";
 
-function SortCards({ sortedCards, setSortedCards }) {
-  const id = React.useId();
+function SortCards() {
+  const [order, setOrder] = React.useState("");
   const [property, setProperty] = React.useState("");
- const { memoizedYuGiOhCards } = React.useContext(YuGiOhCardContext);
+  const { yuGiOhCards, setYuGiOhCards } = React.useContext(YuGiOhCardContext);
 
   function sortByProperty(property) {
-    //possibly use switch for modular and future additions
-    let nextSortedCards;
+    property = property.toLowerCase();
+    let nextYuGiOhCards;
 
-    if (property === "Default") {
-      nextSortedCards = [...memoizedYuGiOhCards];
-      setSortedCards(nextSortedCards);
-      return;
+    switch (property) {
+      case "name":
+        nextYuGiOhCards = [...yuGiOhCards].sort((a, b) =>
+          a[`${property}`].localeCompare(b[`${property}`])
+        );
+        break;
+      case "atk":
+      case "def":
+      case "level":
+        nextYuGiOhCards = [...yuGiOhCards].sort(
+          (a, b) => a[`${property}`] - b[`${property}`]
+        );
+        break;
+      default:
+        break;
     }
 
-    if (typeof sortedCards[0]?.property === "string") {
-      nextSortedCards = [...sortedCards].sort((a, b) =>
-        a.property.localeCompare(b.property)
-      );
-      setSortedCards(nextSortedCards);
-      return;
-    }
-
-    nextSortedCards = [...sortedCards].sort((a, b) => a.property - b.property);
-    setSortedCards(nextSortedCards);
+    setYuGiOhCards(nextYuGiOhCards);
   }
 
   return (
-    <form>
-      <label htmlFor={`properties-${id}`} className={styles.sortBy}>
-        Sort By
-      </label>
+      <section className={styles.sortRow}>
+      <span>Sort By:</span>
       <select
-        id={`properties-${id}`}
         value={property}
         onChange={(e) => {
-          setProperty(e.target.value);
-          sortByProperty(property);
+          const nextProperty = e.target.value;
+          setProperty(nextProperty);
+          sortByProperty(nextProperty);
         }}
       >
         {PROPERTIES.map((prop, index) => {
@@ -51,7 +51,23 @@ function SortCards({ sortedCards, setSortedCards }) {
           );
         })}
       </select>
-    </form>
+      <select
+        value={order}
+        onChange={(e) => {
+          const nextOrder = e.target.value;
+          setOrder(nextOrder);
+          setYuGiOhCards([...yuGiOhCards].reverse());
+        }}
+      >
+        {ORDER.map((direction, index) => {
+          return (
+            <option key={index} value={direction}>
+              {direction}
+            </option>
+          );
+        })}
+      </select>
+    </section>
   );
 }
 

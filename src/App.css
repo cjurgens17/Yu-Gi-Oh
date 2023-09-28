@@ -48,9 +48,7 @@ aside {
 .sort {
   grid-area: sort;
 
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  width: 100%;
   padding: var(--spacing);
   border: 2px solid black;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const YuGiOhCardContext = React.createContext();
+export const YuGiOhCardContext = React.createContext(null);
 
 const ENDPOINT =
   "https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes";
@@ -31,9 +31,9 @@ function YuGiOhCardProvider({ children }) {
     getCards(ENDPOINT);
   }, []);
 
-  const memoizedYuGiOhCards = React.useMemo(() => {
-    return yuGiOhCards;
-  }, [yuGiOhCards]);
+  // const memoizedYuGiOhCards = React.useMemo(() => {
+  //   return yuGiOhCards;
+  // }, [yuGiOhCards]);
 
   if (status === "loading") {
     //do some logic which well add later: Just add Loading for now
@@ -46,7 +46,7 @@ function YuGiOhCardProvider({ children }) {
   }
 
   return (
-    <YuGiOhCardContext.Provider value={{ memoizedYuGiOhCards, setYuGiOhCards }}>
+    <YuGiOhCardContext.Provider value={{ yuGiOhCards, setYuGiOhCards }}>
       {children}
     </YuGiOhCardContext.Provider>
   );

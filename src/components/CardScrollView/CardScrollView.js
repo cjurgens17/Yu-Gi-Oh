@@ -2,6 +2,7 @@ import React from "react";
 import Card from "../Card";
 
 import styles from "./CardScrollView.module.css";
+import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
 
 /*image properties:
@@ -9,14 +10,13 @@ import styles from "./CardScrollView.module.css";
     image_url_cropped: -- cropped version of the large image
     image_url_small: smaller size
 */
-
-//figure out pagination
-function CardScrollView({sortedCards, setSortedCards}) {
+function CardScrollView() {
+const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
 
   return (
     <div className={styles.container}>
     <ol>
-      {sortedCards.map((card, index) => (
+      {yuGiOhCards.map((card, index) => (
         <li key={index}>
           <Card
             img={card.card_images[0].image_url}
