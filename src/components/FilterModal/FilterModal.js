@@ -5,6 +5,8 @@ import { X } from 'react-feather';
 import FocusLock from 'react-focus-lock';
 import { RemoveScroll } from 'react-remove-scroll';
 
+import styles from './FilterModal.module.css';
+
 
 //we need to add an escape that resest the state of the modal to false and then add accessibilty options to this
 
@@ -57,8 +59,9 @@ function FilterModal({setFilterModal}) {
       <RemoveScroll>
     <div aria-modal="true"
       role="dialog"
+      className={styles.modal}
     >
-      <form onSubmit={filterData}>
+      <form onSubmit={filterData} className={styles.formColumn}>
         <label htmlFor={`name-${id}`}>Name</label>
         <input
           id={`name-${id}`}

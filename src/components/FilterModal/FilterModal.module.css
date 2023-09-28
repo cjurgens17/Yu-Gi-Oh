@@ -1,0 +1,18 @@
+.modal {
+    display: positioned;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 25%;
+    background-color: #FFF3DA;
+}
+
+.formColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: var(--spacing);
+    gap: var(--spacing);
+}
