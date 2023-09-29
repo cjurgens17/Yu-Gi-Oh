@@ -44,6 +44,9 @@ h6 {
 #root {
   --spacing: 8px;
   --font-size: 1.15rem;
+  --primary-border-radius: 6px;
+  --font-weight-medium: 600;
+  --primary-outline-offset: .3rem;
 }
 #root,
 #__next {
@@ -66,4 +69,21 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.selectInput {
+  border-radius: var(--primary-border-radius);
+  width: 100%;
+  border: 1px solid lightgrey;
+}
+
+.primaryButton {
+  border-radius: var(--primary-border-radius);
+  background-color: aquamarine;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size);
+  outline-offset: var(--primary-outline-offset);
 }

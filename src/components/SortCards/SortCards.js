@@ -34,8 +34,8 @@ function SortCards() {
 
   return (
       <section className={styles.sortRow}>
-      <span>Sort By:</span>
       <select
+      className="selectInput"
         value={property}
         onChange={(e) => {
           const nextProperty = e.target.value;
@@ -52,6 +52,7 @@ function SortCards() {
         })}
       </select>
       <select
+      className="selectInput"
         value={order}
         onChange={(e) => {
           const nextOrder = e.target.value;

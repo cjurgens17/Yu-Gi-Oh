@@ -4,7 +4,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 25%;
+    width: 15%;
     background-color: #FFF3DA;
 }
 
@@ -13,6 +13,43 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: var(--spacing);
     gap: var(--spacing);
+}
+
+.modalColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing);
+    padding: 2rem;
+
+}
+
+.modalHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 2rem;
+}
+
+.filterTitle {
+    margin-right: auto;
+}
+
+.xButton {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;       
+}
+
+.hoverX:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.filterButton {
+    margin-top: 1rem;
 }

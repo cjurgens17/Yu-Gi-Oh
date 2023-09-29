@@ -13,5 +13,18 @@ ol {
 }
 
 li {
-    padding: var(--spacing)
+    padding: 1px;
+}
+
+::-webkit-scrollbar {
+    width: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: #666;
 }
