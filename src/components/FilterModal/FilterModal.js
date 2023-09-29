@@ -1,20 +1,18 @@
 import React from "react";
-import { TYPES } from "../../constants/properties";
-import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
+import { RACE } from "../../constants/properties";
 import { X } from "react-feather";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 
 import styles from "./FilterModal.module.css";
 
-//we need to add an escape that resest the state of the modal to false and then add accessibilty options to this
-
-function FilterModal({ setFilterModal }) {
+function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilteredCards}) {
+  const ENDPOINT = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
   const id = React.useId();
-  const [type, setType] = React.useState("");
   const [name, setName] = React.useState("");
-  const { yuGiOhCards, setYugiOhCards } = React.useContext(YuGiOhCardContext);
+  const [race, setRace] = React.useState("");
   const exit = React.useRef();
+
 
   //escape modal of escape keypress
   React.useEffect(() => {
@@ -29,25 +27,17 @@ function FilterModal({ setFilterModal }) {
     return () => window.removeEventListener("keydown", escape);
   }, [setFilterModal]);
 
-  //not working right now--potentially turn this into api request and rest the yugioh cards
-  function filterData() {
-    let newData = [...yuGiOhCards];
+  //async function to get filtered cards from api
+  async function getFilteredCards(ENDPOINT){
+    ENDPOINT += `?race=${race.toLowerCase()}`;
+    console.log(ENDPOINT);
+    const resp = await fetch(ENDPOINT);
+    if(!resp.ok) throw resp;
 
-    //Can add more filters in the future here.
-    const filters = [
-      { key: "type", value: type },
-      { key: "name", value: name },
-    ];
-
-    filters.forEach((filter) => {
-      if (filter.value !== "") {
-        newData = newData.filter((item) => {
-          return item[filter.key] === filter.value;
-        });
-      }
-    });
-
-    setYugiOhCards(newData);
+    const data = await resp.json();
+    if(data) setFilteredCards([data.data]);
+    console.log(filteredCards[0]);
+    setShowFiltered(true);
   }
 
   return (
@@ -65,7 +55,11 @@ function FilterModal({ setFilterModal }) {
                 <X/>
               </button>
             </div>
-            <form onSubmit={filterData} className={styles.formColumn}>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              getFilteredCards(ENDPOINT)
+              }} 
+              className={styles.formColumn}>
               <label htmlFor={`name-${id}`}>Name</label>
               <input
                 className="selectInput"
@@ -73,21 +67,26 @@ function FilterModal({ setFilterModal }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <label htmlFor={`type-${id}`}>Type</label>
+              <label htmlFor={`race-${id}`}>Race</label>
               <select
                 className="selectInput"
-                id={`type-${id}`}
-                value={type}
-                onChange={(e) => setType(e.target.value)}
+                id={`race-${id}`}
+                value={race}
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setRace(e.target.value)}}
               >
-                {TYPES.map((type, index) => {
+                {RACE.map((race, index) => {
                   return (
-                    <option key={index} value={type}>
-                      {type}
+                    <option
+                    key={index}
+                    value={race}
+                    >
+                      {race}
                     </option>
-                  );
+                  )
                 })}
-              </select>{" "}
+              </select>
               <button className={`primaryButton ${styles.filterButton}`}>
                 Filter
               </button>

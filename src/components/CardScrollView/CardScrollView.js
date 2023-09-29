@@ -10,13 +10,16 @@ import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
     image_url_cropped: -- cropped version of the large image
     image_url_small: smaller size
 */
-function CardScrollView() {
+function CardScrollView({showFiltered, filteredCards}) {
 const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
+
+//show all cards or user filtered cards
+const cardsToShow = (showFiltered && filteredCards[0].length > 0) ? filteredCards[0] : yuGiOhCards;
 
   return (
     <div className={styles.container}>
     <ol>
-      {yuGiOhCards.map((card, index) => (
+      {cardsToShow.map((card, index) => (
         <li key={index}>
           <Card
             img={card.card_images[0].image_url}

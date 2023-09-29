@@ -8,13 +8,16 @@ import FilterModal from "../FilterModal/FilterModal";
 import Carousel from "../Carousel";
 import styles from './YugiohTool.module.css';
 
+
 function YugiohTool(){
     const [filterModal, setFilterModal] = React.useState(false);
+    const [showFiltered, setShowFiltered] = React.useState(false);
+    const [filteredCards, setFilteredCards] = React.useState([]);
 
     return (
         <div className={styles.gridWrapper}>
         {filterModal && (
-          <FilterModal setFilterModal={setFilterModal}></FilterModal>
+          <FilterModal setShowFiltered={setShowFiltered} setFilterModal={setFilterModal} filteredCards={filteredCards} setFilteredCards={setFilteredCards}></FilterModal>
         )}
         <header className={styles.filter}>
           <h1>Yugioh</h1>
@@ -24,14 +27,14 @@ function YugiohTool(){
         </main>
         <aside>
           <section className={styles.header}>
-            <CardResults />
+            <CardResults showFiltered={showFiltered} filteredCards={filteredCards}/>
             <OpenFilterModal setFilterModal={setFilterModal}/>
           </section>
           <section className={styles.sort}>
             <SortCards/>
           </section>
           <section className={styles.cards}>
-          <CardScrollView/>
+          <CardScrollView showFiltered={showFiltered} filteredCards={filteredCards}/>
           </section>
         </aside>
       </div>
