@@ -22,11 +22,7 @@ let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
       {cardsToShow.map((card, index) => (
         <li key={index}>
           <Card
-            img={card.card_images[0].image_url}
-            type={card.type}
-            name={card.name}
-            attribute={card.attribute}
-            desc={card.desc}
+          card={card}
           />
         </li>
       ))}

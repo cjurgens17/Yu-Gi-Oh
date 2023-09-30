@@ -1,11 +1,12 @@
 import React from "react";
 import styles from './Monster.module.css';
+import MonsterDialog from "../MonsterDialog";
 
 
-function Monster({img, name}){
-
+function Monster({card}){
+const cardImg = card.card_images[0].image_url
     return (
-            <img className={styles.cover} alt={`Monster ${name}`} src={img}/>
+           <MonsterDialog card={card} trigger={<img className={styles.cover} alt={`Monster ${card.name}`} src={cardImg}/>} />
     );
 }
 

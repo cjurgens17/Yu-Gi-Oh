@@ -1,7 +1,8 @@
 .hoverCardContent {
     border-radius: 6px;
     padding: 20px;
-    width: 300px;
+    width: 800px;
+    height: min-content;
     background-color: white;
     box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
     animation-duration: 400ms;
@@ -26,10 +27,44 @@
     fill: white;
   }
 
-  .contentWrapper {
+  /*monster styles*/
+  .dialogGrid {
+    display: grid;
+    grid-template-areas: 
+      'details card'
+      ;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: var(--spacing);
+    gap: var(--spacing);
+  }
+  
+  .details {
+    grid-area: details;
+    
     display: flex;
     flex-direction: column;
-    gap: var(--spacing);
+    justify-content: flex-start;
+    align-items: flex-start;
+    word-break: break-word;
+  }
+
+  p:nth-child(3) {
+    margin-bottom: var(--spacing);
+  }
+  
+  .card {
+    grid-area: card;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .cardImage {
+    width: 100%;
+    height: 100%;
   }
 
 

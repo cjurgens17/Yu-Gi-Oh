@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './MonsterDetails.module.css';
 
-function MonsterDetails({name, type, attribute}){
+function MonsterDetails({card}){
+    
+    //currently used card props, can add more if need to change
+    const {name, type, attribute} = card;
     return (
         <div className={styles.monsterDetails}>
            <b>Name: </b><span>{name}</span>
