@@ -26,6 +26,7 @@ let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
             type={card.type}
             name={card.name}
             attribute={card.attribute}
+            desc={card.desc}
           />
         </li>
       ))}
