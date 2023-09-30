@@ -87,3 +87,14 @@ code {
   font-size: var(--font-size);
   outline-offset: var(--primary-outline-offset);
 }
+
+.resetButton {
+  border-radius: var(--primary-border-radius);
+  background-color: rgb(228, 7, 128);
+  border: none;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size);
+  outline-offset: var(--primary-outline-offset);
+}

@@ -14,7 +14,7 @@ function CardScrollView({showFiltered, filteredCards}) {
 const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
 
 //show all cards or user filtered cards
-const cardsToShow = (showFiltered && filteredCards[0].length > 0) ? filteredCards[0] : yuGiOhCards;
+let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
 
   return (
     <div className={styles.container}>

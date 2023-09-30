@@ -1,17 +1,19 @@
 import React from "react";
-import { RACE } from "../../constants/properties";
+import { RACE, TYPES } from "../../constants/properties";
 import { X } from "react-feather";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 
 import styles from "./FilterModal.module.css";
+import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
 function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilteredCards}) {
-  const ENDPOINT = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
   const id = React.useId();
   const [name, setName] = React.useState("");
   const [race, setRace] = React.useState("");
+  const[type, setType] = React.useState("");
   const exit = React.useRef();
+  const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
 
 
   //escape modal of escape keypress
@@ -27,17 +29,33 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
     return () => window.removeEventListener("keydown", escape);
   }, [setFilterModal]);
 
-  //async function to get filtered cards from api
-  async function getFilteredCards(ENDPOINT){
-    ENDPOINT += `?race=${race.toLowerCase()}`;
-    console.log(ENDPOINT);
-    const resp = await fetch(ENDPOINT);
-    if(!resp.ok) throw resp;
+  function filterCards(){
+    let nextFilteredCards = [...yuGiOhCards];
 
-    const data = await resp.json();
-    if(data) setFilteredCards([data.data]);
-    console.log(filteredCards[0]);
+    //add more properties in the future if needed
+    let filters = {
+      name: name,
+      race: race,
+      frameType: type
+    }
+
+    const filterKeys = Object.keys(filters);
+
+    for(let key of filterKeys){
+     nextFilteredCards = nextFilteredCards.filter((card) => {
+        return card[key].toLowerCase().includes(filters[key].toLowerCase());
+      });
+    }
+    console.log(nextFilteredCards);
+    setFilteredCards(nextFilteredCards);
     setShowFiltered(true);
+  }
+
+  function resetFilter(){
+    setShowFiltered(false);
+    setType("");
+    setRace("");
+    setName("");
   }
 
   return (
@@ -57,7 +75,7 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
             </div>
             <form onSubmit={(e) => {
               e.preventDefault();
-              getFilteredCards(ENDPOINT)
+              filterCards();
               }} 
               className={styles.formColumn}>
               <label htmlFor={`name-${id}`}>Name</label>
@@ -65,7 +83,10 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
                 className="selectInput"
                 id={`name-${id}`}
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value)
+                  filterCards();
+                }}
               />
               <label htmlFor={`race-${id}`}>Race</label>
               <select
@@ -87,10 +108,30 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
                   )
                 })}
               </select>
+              <label htmlFor={`type-${id}`}>Type</label>
+              <select
+                className="selectInput"
+                id={`type-${id}`}
+                value={type}
+                onChange={(e)=> setType(e.target.value)}
+              >
+                {TYPES.map((type, index) => {
+                  return <option
+                    key={index}
+                    value={type}                  
+                  >{type}</option>
+                })}
+              </select>
               <button className={`primaryButton ${styles.filterButton}`}>
                 Filter
               </button>
             </form>
+            <button
+               className="resetButton"
+               onClick={resetFilter}
+               >
+                Reset Filter
+              </button>
           </section>
         </div>
       </RemoveScroll>
