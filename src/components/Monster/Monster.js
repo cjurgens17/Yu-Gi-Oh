@@ -5,8 +5,9 @@ import MonsterDialog from "../MonsterDialog";
 
 function Monster({card}){
 const cardImg = card.card_images[0].image_url
+const dragRef = React.useRef();
     return (
-           <MonsterDialog card={card} trigger={<img className={styles.cover} alt={`Monster ${card.name}`} src={cardImg}/>} />
+           <MonsterDialog card={card} trigger={<img ref={dragRef} className={styles.cover} alt={`Monster ${card.name}`} src={cardImg}/>} />
     );
 }
 

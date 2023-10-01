@@ -4,9 +4,10 @@ import styles from "./MonsterDialog.module.css";
 
 function MonsterDialog({ card, trigger }) {
   //currently used data from card, can add more if we need to change
+  const {dragRef} = trigger.props;
   const {
     name,
-    card_images: [{ image_url }],
+    card_images: [{ image_url , image_url_small}],
     desc,
     atk,
     def,
@@ -15,10 +16,24 @@ function MonsterDialog({ card, trigger }) {
     level
   } = card;
 
+  React.useEffect(() => {
+    function dragHandler(e){
+     e.dataTransfer.setData('text/plain', dragRef.current.src);
+     e.dataTransfer.setDragImage(image_url_small,10,10);
+     e.dataTransfer.effectAllowed = "move";
+    }
+
+    window.addEventListener("DOMContentLoaded", dragHandler);
+
+    return () => {
+      window.removeEventListener("DOMContentLoaded", dragHandler);
+    }
+  })
+
   return (
-    <HoverCard.Root openDelay={700}>
+    <HoverCard.Root openDelay={0} closeDelay={0}>
       <HoverCard.Trigger asChild>
-        {React.cloneElement(trigger, { ...trigger.props})}
+            {React.cloneElement(trigger, { ...trigger.props })}
       </HoverCard.Trigger>
       <HoverCard.Content
         className={styles.hoverCardContent}

@@ -16,7 +16,12 @@
   
   .filter {
     grid-area: filter;
-    border: 2px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
   }
   
   aside {
@@ -58,6 +63,13 @@
   
   .details {
     grid-area: details;
-    border: 2px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 2px solid red;
+    padding: var(--spacing);
+    gap: var(--spacing);
   }
   

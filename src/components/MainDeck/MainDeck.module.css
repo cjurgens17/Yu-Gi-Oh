@@ -1,0 +1,18 @@
+.deckGrid {
+    display: grid;
+    justify-content: start;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing);
+    grid-auto-flow: dense;
+    width: 100%;
+    height: 100%;
+    border: 2px solid orange;
+}
+
+.mainDeckWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    height: 100%;
+}

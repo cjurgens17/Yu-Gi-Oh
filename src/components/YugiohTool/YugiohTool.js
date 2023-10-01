@@ -5,8 +5,11 @@ import CardResults from "../CardResults";
 import SortCards from "../SortCards/SortCards";
 import OpenFilterModal from "../OpenFilterModal/OpenFilerModal";
 import FilterModal from "../FilterModal/FilterModal";
-import Carousel from "../Carousel";
+// import Carousel from "../Carousel";
+import DeckName from '../DeckName';
+
 import styles from './YugiohTool.module.css';
+import MainDeck from '../MainDeck';
 
 
 function YugiohTool(){
@@ -20,10 +23,11 @@ function YugiohTool(){
           <FilterModal setShowFiltered={setShowFiltered} setFilterModal={setFilterModal} filteredCards={filteredCards} setFilteredCards={setFilteredCards}></FilterModal>
         )}
         <header className={styles.filter}>
-          <h1>Yugioh</h1>
+          <DeckName/>
         </header>
         <main className={styles.details}>
-          <Carousel></Carousel>
+          {/* <Carousel></Carousel> */}
+          <MainDeck/>
         </main>
         <aside>
           <section className={styles.header}>
