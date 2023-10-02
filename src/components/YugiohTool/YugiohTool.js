@@ -10,6 +10,8 @@ import DeckName from '../DeckName';
 
 import styles from './YugiohTool.module.css';
 import MainDeck from '../MainDeck';
+import SideDeck from '../SideDeck';
+import ExtraDeck from '../ExtraDeck';
 
 
 function YugiohTool(){
@@ -28,6 +30,8 @@ function YugiohTool(){
         <main className={styles.details}>
           {/* <Carousel></Carousel> */}
           <MainDeck/>
+          <SideDeck/>
+          <ExtraDeck/>
         </main>
         <aside>
           <section className={styles.header}>
