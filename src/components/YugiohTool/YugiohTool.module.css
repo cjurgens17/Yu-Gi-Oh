@@ -40,6 +40,10 @@
     grid-template-columns: 1fr;
     gap: var(--spacing);
     height: 100vh;
+
+    position: sticky;
+    top: 0;
+    right: 0;
   }
   
   .header {
@@ -64,11 +68,7 @@
     overflow: auto;
   }
 
-  .fixed {
-    top: 20;
-    right:0;
-    position: fixed;
-  }
+ 
   
   .details {
     grid-area: details;

@@ -53,7 +53,7 @@ function YugiohTool() {
           <CardScrollView
             showFiltered={showFiltered}
             filteredCards={filteredCards}
-          />
+          />  
         </section>
       </aside>
     </div>
