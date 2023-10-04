@@ -61,9 +61,8 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
   return (
     <FocusLock returnFocus={true}>
       <RemoveScroll>
-        <div aria-modal="true" role="dialog" className={styles.modal}>
-          <section className={styles.modalColumn}>
-            <div className={styles.modalHeader}>
+          <aside aria-modal="true" role="dialog" className={styles.modal}>
+            <article className={styles.modalHeader}>
               <h1 className={styles.filterTitle}>Filter Cards</h1>
               <button
                 className={`${styles.xButton} ${styles.hoverX}`}
@@ -72,7 +71,7 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
               >
                 <X/>
               </button>
-            </div>
+            </article>
             <form onSubmit={(e) => {
               e.preventDefault();
               filterCards();
@@ -132,8 +131,7 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
                >
                 Reset Filter
               </button>
-          </section>
-        </div>
+          </aside> 
       </RemoveScroll>
     </FocusLock>
   );

@@ -7,7 +7,9 @@ function App() {
 
   return (
     <YuGiOhCardProvider>
+     <div className="wrapper">
         <YugiohTool/>
+        </div>
     </YuGiOhCardProvider>
   );
 }

@@ -7,7 +7,6 @@
     gap: var(--spacing);
     width: 100%;
     height: 100%;
-    border: 2px solid black;
     padding: var(--spacing);
     min-height: 15.625rem;
 }
@@ -17,19 +16,22 @@
     flex-direction: column;
     gap: var(--spacing);
     height: 100%;
+    border-radius: 4px;
+    box-shadow: var(--shadow-elevation-medium);
+    border: 2px solid
 }
 
 /*Flexible styles - can change them up to what we need or add more in the future depending on what we want from the deck */
 .mainDeck {
-    background-color: brown;
+    background-color: #7D7C7C;
 }
 
 .sideDeck {
-    background-color: purple;
+    background-color: #7D7C7C;
 }
 
 .extraDeck {
-    background-color: lightgreen;
+    background-color: #7D7C7C;
 }
 
 /* styles for droppped image/item */
@@ -37,4 +39,5 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+    box-shadow: var(--shadow-elevation-high);
 }
