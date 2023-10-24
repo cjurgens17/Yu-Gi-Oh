@@ -12,18 +12,46 @@ import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 */
 function CardScrollView({showFiltered, filteredCards}) {
 const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
-
-//show all cards or user filtered cards
+const[numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
+const cardContainerRef = React.useRef(null);
 let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
+const incrementCardsToShow = 4;
+
+React.useEffect(() => {
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  }
+
+  const handleInfiniteScroll = (entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting){
+        const nextNumOfCardsToShow = numOfCardsToShow + incrementCardsToShow;
+        setNumOfCardsToShow(nextNumOfCardsToShow);
+      }
+    })
+  }
+
+  const observer = new IntersectionObserver(handleInfiniteScroll,options);
+
+  if(cardContainerRef.current){
+    observer.observe(cardContainerRef.current);
+  }
+
+  return () => {
+    observer.disconnect();
+  }
+}, [numOfCardsToShow]);
 
   return (
     <div className={styles.container}>
-    <ol>
-      {cardsToShow.map((card, index) => (
+    <ol ref={cardContainerRef}>
+     {cardsToShow
+      .slice(0,numOfCardsToShow)
+      .map((card,index) => (
         <li key={index}>
-          <Card
-          card={card}
-          />
+          <Card card={card} />
         </li>
       ))}
     </ol>

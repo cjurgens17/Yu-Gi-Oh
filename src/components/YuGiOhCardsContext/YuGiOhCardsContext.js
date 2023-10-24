@@ -3,7 +3,8 @@ import React from "react";
 export const YuGiOhCardContext = React.createContext(null);
 
 const ENDPOINT =
-  "https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes";
+'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+  // "https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=Blue-Eyes";
 
 function YuGiOhCardProvider({ children }) {
   const [status, setStatus] = React.useState("");

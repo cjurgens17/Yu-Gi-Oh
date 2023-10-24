@@ -4,7 +4,7 @@ function Header(){
     return (
 
      <div>
-        <h1>Yu-Gi-Oh!</h1>
+        <h1>Yu-Gi-Oh Deck Builder</h1>
      </div>
     );
 }
