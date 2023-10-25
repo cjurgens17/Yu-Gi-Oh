@@ -31,7 +31,7 @@ function MonsterDialog({ card, trigger }) {
   })
 
   return (
-    <HoverCard.Root openDelay={0} closeDelay={0}>
+    <HoverCard.Root openDelay={300} closeDelay={0}>
       <HoverCard.Trigger asChild className={styles.hoverTrigger}>
             {React.cloneElement(trigger, { ...trigger.props })}
       </HoverCard.Trigger>

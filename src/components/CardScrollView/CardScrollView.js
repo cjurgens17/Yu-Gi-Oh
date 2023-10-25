@@ -15,13 +15,13 @@ const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
 const[numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
 const cardContainerRef = React.useRef(null);
 let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
-const incrementCardsToShow = 4;
+const incrementCardsToShow = 5;
 
 React.useEffect(() => {
   const options = {
     root: null,
     rootMargin: '0px',
-    threshold: 0.1
+    threshold: 1.0
   }
 
   const handleInfiniteScroll = (entries) => {
