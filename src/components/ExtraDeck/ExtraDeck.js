@@ -1,13 +1,15 @@
 import React from 'react';
-import MainDeck from '../MainDeck';
+import DeckPrototype from '../DeckPrototype';
 
 function ExtraDeck(){
 
     const background = 'extraDeck';
     const name = 'Extra Deck'
+    const [extraDeck, setDeck] = React.useState([]);
+    console.log("Extra Deck", extraDeck);
 
     return (
-            <MainDeck background={background} name={name}/>
+            <DeckPrototype background={background} name={name} setDeck={setDeck}/>
     );
 }
 

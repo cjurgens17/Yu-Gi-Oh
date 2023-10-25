@@ -5,7 +5,6 @@ import CardResults from "../CardResults";
 import SortCards from "../SortCards/SortCards";
 import OpenFilterModal from "../OpenFilterModal/OpenFilerModal";
 import FilterModal from "../FilterModal/FilterModal";
-// import Carousel from "../Carousel";
 import DeckName from "../DeckName";
 
 import styles from "./YugiohTool.module.css";
@@ -33,8 +32,8 @@ function YugiohTool() {
       </header>
       <main className={styles.details}>
         {/* <Carousel></Carousel> */}
-          <MainDeck />
-          <SideDeck />
+          <MainDeck/>
+          <SideDeck/>
           <ExtraDeck/>
       </main>
       <aside className={styles.cardScroll}>

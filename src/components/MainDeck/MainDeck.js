@@ -1,42 +1,14 @@
 import React from 'react';
-import styles from './MainDeck.module.css';
+import DeckPrototype from '../DeckPrototype';
 
-function MainDeck({background = 'mainDeck', name = 'Main Deck'}){
+function MainDeck(){
 
-    const [droppedCards, setDroppedCards] = React.useState([]);
-
-    function handleDragOver(e){
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
-    }
-
-    function handleDrop(e){
-        e.preventDefault();
-        const image = e.dataTransfer.getData("text/plain");
-        setDroppedCards([...droppedCards, image]);
-    }
-
-    const deckStyles = `${styles.mainDeckWrapper} ${styles[background]}`;
-   
-
+    const background = 'mainDeck';
+    const name = 'Main Deck';
+    const [mainDeck, setDeck] = React.useState([]);
+    console.log("Main Deck", mainDeck);
     return (
-<section
-  onDrop={handleDrop}
-  onDragOver={handleDragOver}
-  className={deckStyles}
->
-  <h1>{name}</h1>
-  <div className={styles.deckGrid}>
-  {droppedCards.map((img, index) => (
-    <img
-      key={index}
-      alt="Yugioh card in the main deck"
-      src={img}
-      className={styles.droppedItem}
-    />
-  ))}
-  </div>
-</section>
+        <DeckPrototype background={background} name={name} setDeck={setDeck}/>
     );
 }
 

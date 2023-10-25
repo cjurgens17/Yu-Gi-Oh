@@ -1,13 +1,15 @@
 import React from 'react';
-import MainDeck from '../MainDeck';
+import DeckPrototype from '../DeckPrototype';
 function SideDeck(){
     
     //these are passed to deck, css classes are defined in MainDeck
     const background = 'sideDeck';
-    const name = 'Side Deck'
+    const name = 'Side Deck';
+    const [sideDeck, setDeck] = React.useState([]);
+    console.log("side deck",sideDeck);
 
     return (
-        <MainDeck background={background} name={name}/>
+        <DeckPrototype background={background} name={name} setDeck={setDeck}/>
     );
 }
 
