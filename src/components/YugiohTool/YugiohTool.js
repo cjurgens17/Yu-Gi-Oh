@@ -11,6 +11,8 @@ import styles from "./YugiohTool.module.css";
 import MainDeck from "../MainDeck";
 import SideDeck from "../SideDeck";
 import ExtraDeck from "../ExtraDeck";
+import Export from '../Export';
+import UserDeckProvider from "../UserDeckContext/UserDeckContext";
 
 function YugiohTool() {
   const [filterModal, setFilterModal] = React.useState(false);
@@ -18,6 +20,7 @@ function YugiohTool() {
   const [filteredCards, setFilteredCards] = React.useState([]);
 
   return (
+    <UserDeckProvider>
     <div className={styles.gridWrapper}>
       {filterModal && (
         <FilterModal
@@ -29,6 +32,7 @@ function YugiohTool() {
       )}
       <header className={styles.filter}>
         <DeckName />
+        <Export/>
       </header>
       <main className={styles.details}>
         {/* <Carousel></Carousel> */}
@@ -56,6 +60,7 @@ function YugiohTool() {
         </section>
       </aside>
     </div>
+    </UserDeckProvider>
   );
 }
 

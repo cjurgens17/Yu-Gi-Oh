@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './DeckPrototype.module.css';
+import { UserDeckContext } from '../UserDeckContext/UserDeckContext';
 
-function DeckPrototype({background, name, setDeck}){
+function DeckPrototype({background, name}){
 
     const [droppedCards, setDroppedCards] = React.useState([]);
+    const {userDeckData, setUserDeckData} = React.useContext(UserDeckContext);
 
     function handleDragOver(e){
         e.preventDefault();
@@ -14,9 +16,23 @@ function DeckPrototype({background, name, setDeck}){
         e.preventDefault();
         const droppedData = e.dataTransfer.getData("application/json");
         const droppedObject = JSON.parse(droppedData);
-        setDroppedCards([...droppedCards, droppedObject]);
-        setDeck([...droppedCards, droppedObject])
-        console.log(droppedCards);
+        const nextDroppedCards = [...droppedCards, droppedObject];
+        setDroppedCards(nextDroppedCards);
+
+        //switch to update userDeckData correctly-- ability to add new features in the future
+        switch (name) {
+          case 'Main Deck':
+            setUserDeckData({...userDeckData, mainDeck: nextDroppedCards});
+            break;
+          case 'Side Deck':
+            setUserDeckData({...userDeckData, sideDeck: nextDroppedCards});
+            break;
+          case 'Extra Deck':
+            setUserDeckData({...userDeckData, extraDeck: nextDroppedCards});
+            break;
+          default:
+            break;
+        }
     }
 
     const deckStyles = `${styles.mainDeckWrapper} ${styles[background]}`;

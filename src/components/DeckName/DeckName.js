@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './DeckName.module.css';
+import { UserDeckContext } from '../UserDeckContext/UserDeckContext';
 
 function DeckComponent(){
-    const[deckName, setDeckName] = React.useState('');
+    const {userDeckData, setUserDeckData} = React.useContext(UserDeckContext);
     const id = React.useId();
 
     return (
@@ -13,8 +14,10 @@ function DeckComponent(){
             <input
                 className=""
                 id={`deck-${id}`}
-                value={deckName}
-                onChange={(e) => setDeckName(e.target.value)}
+                value={userDeckData.deckName}
+                onChange={(e) => {
+                    setUserDeckData({...userDeckData, deckName: e.target.value})
+                }}
             />
         </section>
     );
