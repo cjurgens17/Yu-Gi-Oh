@@ -3,6 +3,7 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import styles from "./MonsterDialog.module.css";
 
 function MonsterDialog({ card, trigger }) {
+  
   //currently used data from card, can add more if we need to change
   const {dragRef} = trigger.props;
   const {
@@ -28,14 +29,14 @@ function MonsterDialog({ card, trigger }) {
     return () => {
       window.removeEventListener("DOMContentLoaded", dragHandler);
     }
-  })
+  });
 
   return (
-    <HoverCard.Root openDelay={300} closeDelay={0}>
+  <HoverCard.Root openDelay={700} closeDelay={300}>
       <HoverCard.Trigger asChild className={styles.hoverTrigger}>
-            {React.cloneElement(trigger, { ...trigger.props })}
+            {React.cloneElement(trigger, {...trigger.props})}
       </HoverCard.Trigger>
-      <HoverCard.Content
+    <HoverCard.Content
         className={styles.hoverCardContent}
         sideOffset={5}
         side="left"
@@ -67,7 +68,7 @@ function MonsterDialog({ card, trigger }) {
         <HoverCard.Arrow className={styles.hoverCardArrow} />
       </HoverCard.Content>
     </HoverCard.Root>
-  );
+  )
 }
 
 export default MonsterDialog;

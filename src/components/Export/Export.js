@@ -1,5 +1,4 @@
 import React from "react";
-// import styles from "./Export.module.css";
 import { UserDeckContext } from "../UserDeckContext/UserDeckContext";
 
 function Export() {
@@ -19,7 +18,7 @@ function Export() {
 
   return (
     <section>
-      <button
+      <button className="primaryButton"
         onClick={() => {
           exportDeck();
         }}

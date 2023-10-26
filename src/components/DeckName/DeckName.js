@@ -9,10 +9,9 @@ function DeckComponent(){
     return (
         <section className={styles.deckNameWrapper}>
             <label htmlFor={`deck-${id}`}>
-                Deck Name: 
+                Name: 
             </label>
             <input
-                className=""
                 id={`deck-${id}`}
                 value={userDeckData.deckName}
                 onChange={(e) => {

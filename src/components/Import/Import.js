@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserDeckContext } from '../UserDeckContext/UserDeckContext';
-// import styles from './Import.module.css';
+import styles from './Import.module.css';
 
 
 function Import(){
@@ -22,11 +22,10 @@ function Import(){
     }
 
     return (
-        <section>
-            <label>Import Deck</label>
-            <input type="file" accept=".json" onChange={handleFileImport}></input>
-        </section>
-        
+        <section className={styles.importContainer}>
+            <label htmlFor="fileInput" className={`${styles.loadDeck} primaryButton`}>Import</label>
+            <input id="fileInput" type="file" accept=".json" onChange={handleFileImport}></input>
+        </section>  
     );
 }
 

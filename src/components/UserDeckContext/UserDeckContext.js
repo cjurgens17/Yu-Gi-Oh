@@ -4,7 +4,7 @@ export const UserDeckContext = React.createContext(null);
 
 function UserDeckProvider({children}) {
     const [userDeckData, setUserDeckData] = React.useState({
-        deckName: '',
+        deckName: 'YuGiOh Deck',
         mainDeck: [],
         sideDeck: [],
         extraDeck: []

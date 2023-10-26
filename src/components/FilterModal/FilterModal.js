@@ -2,8 +2,6 @@ import React from "react";
 import { RACE, TYPES } from "../../constants/properties";
 import { X } from "react-feather";
 import FocusLock from "react-focus-lock";
-import { RemoveScroll } from "react-remove-scroll";
-
 import styles from "./FilterModal.module.css";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
@@ -60,7 +58,6 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
 
   return (
     <FocusLock returnFocus={true}>
-      <RemoveScroll>
           <aside aria-modal="true" role="dialog" className={styles.modal}>
             <article className={styles.modalHeader}>
               <h1 className={styles.filterTitle}>Filter Cards</h1>
@@ -132,7 +129,6 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
                 Reset Filter
               </button>
           </aside> 
-      </RemoveScroll>
     </FocusLock>
   );
 }

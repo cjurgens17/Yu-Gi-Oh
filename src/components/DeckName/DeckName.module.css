@@ -3,4 +3,6 @@
     justify-content: center;
     align-items: center;
     gap: var(--spacing);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-medium);
 }

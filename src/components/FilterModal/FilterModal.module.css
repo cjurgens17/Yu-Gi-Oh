@@ -45,14 +45,17 @@
 
 .xButton {
     margin: 0;
-    padding: 0;
+    padding: var(--spacing);
     border: none;
-    background: none;       
+    background: none; 
+    will-change: transform;      
 }
 
 .hoverX:hover {
     color: red;
     cursor: pointer;
+    transform: rotate(360deg);    
+    transition: transform 600ms ease-in-out;
 }
 
 .filterButton {

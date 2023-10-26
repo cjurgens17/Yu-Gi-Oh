@@ -5,7 +5,7 @@ function Reset() {
   const { setUserDeckData } = React.useContext(UserDeckContext);
 
   const userDeckModel = {
-    deckName: "",
+    deckName: "YuGiOh Deck",
     mainDeck: [],
     sideDeck: [],
     extraDeck: [],
@@ -17,7 +17,7 @@ function Reset() {
 
   return (
     <section>
-      <button onClick={resetDeck}>Reset Deck</button>
+      <button className="primaryButton" onClick={resetDeck}>Reset</button>
     </section>
   );
 }

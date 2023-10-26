@@ -1,0 +1,15 @@
+.importContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.loadDeck {
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}

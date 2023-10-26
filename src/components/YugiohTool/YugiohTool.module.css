@@ -20,10 +20,14 @@
     grid-area: filter;
 
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     height: 100%;
     width: 100%;
+    gap: var(--spacing);
+    border: 2px solid black;
+    border-radius: var(--primary-border-radius);
+    padding: var(--spacing);
+    box-shadow: var(--shadow-elevation-low);
   }
   
   .cardScroll {
