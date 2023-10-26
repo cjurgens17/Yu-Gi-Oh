@@ -12,6 +12,8 @@ import MainDeck from "../MainDeck";
 import SideDeck from "../SideDeck";
 import ExtraDeck from "../ExtraDeck";
 import Export from '../Export';
+import Import from '../Import';
+import Reset from '../Reset';
 import UserDeckProvider from "../UserDeckContext/UserDeckContext";
 
 function YugiohTool() {
@@ -32,7 +34,9 @@ function YugiohTool() {
       )}
       <header className={styles.filter}>
         <DeckName />
+        <Import/>
         <Export/>
+        <Reset/>
       </header>
       <main className={styles.details}>
         {/* <Carousel></Carousel> */}
