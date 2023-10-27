@@ -4,58 +4,69 @@ import Card from "../Card";
 import styles from "./CardScrollView.module.css";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
-
 /*image properties:
     image_url: regular image -- larger size
     image_url_cropped: -- cropped version of the large image
     image_url_small: smaller size
 */
-function CardScrollView({showFiltered, filteredCards}) {
-const {yuGiOhCards} = React.useContext(YuGiOhCardContext);
-const[numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
-const cardContainerRef = React.useRef(null);
-let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
-const incrementCardsToShow = 5;
+function CardScrollView({ showFiltered, filteredCards }) {
 
-React.useEffect(() => {
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1.0
-  }
+  const { yuGiOhCards } = React.useContext(YuGiOhCardContext);
+  const [numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
+  const cardContainerRef = React.useRef(null);
+  let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
+  const incrementCardsToShow = 5;
 
-  const handleInfiniteScroll = (entries) => {
-    entries.forEach((entry) => {
-      if(entry.isIntersecting){
-        const nextNumOfCardsToShow = numOfCardsToShow + incrementCardsToShow;
-        setNumOfCardsToShow(nextNumOfCardsToShow);
-      }
-    })
-  }
+  React.useEffect(() => {
 
-  const observer = new IntersectionObserver(handleInfiniteScroll,options);
+    const loadMoreCards = () => {
+      const nextSetOfCards = numOfCardsToShow + incrementCardsToShow;
+      setNumOfCardsToShow(nextSetOfCards);
+    };
 
-  if(cardContainerRef.current){
-    observer.observe(cardContainerRef.current);
-  }
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
 
-  return () => {
-    observer.disconnect();
-  }
-}, [numOfCardsToShow]);
+    const handleInfiniteScroll = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            console.log(entry);
+            loadMoreCards();
+          
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleInfiniteScroll, options);
+
+    if (cardContainerRef.current) {
+      observer.observe(cardContainerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [numOfCardsToShow]);
 
   return (
     <div className={styles.container}>
-    <ol ref={cardContainerRef}>
-     {cardsToShow
-      .slice(0,numOfCardsToShow)
-      .map((card,index) => (
-        <li key={index}>
-          <Card card={card} />
-        </li>
-      ))}
+       <ol ref={cardContainerRef}>
+      {cardsToShow
+        .slice(0, numOfCardsToShow)
+        .map((card, index) => (
+          index % 5 !== 0 ? (
+            <li key={index}>
+              <Card card={card} />
+            </li>
+          ) : <li key={index} ref={cardContainerRef}>
+            <Card card={card}/>
+          </li>
+        ))}
     </ol>
-  </div>
+    </div>
   );
 }
 
