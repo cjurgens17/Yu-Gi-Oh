@@ -72,6 +72,13 @@
     box-shadow: var(--shadow-elevation-high);
   }
 
+.cover {
+    object-fit: contain;
+    width: 50%;
+    border: 1px solid #000;
+    cursor: grab;
+}
+
 
   @keyframes slideUpAndFade {
     0% {

@@ -2,10 +2,11 @@ import React from "react";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import styles from "./MonsterDialog.module.css";
 
-function MonsterDialog({ card, trigger }) {
+function MonsterDialog({ card }) {
   
+  const [isHoverCardContentVisible, setIsHoverCardContentVisible] = React.useState(false);
+  const dragRef = React.useRef(null);
   //currently used data from card, can add more if we need to change
-  const {dragRef} = trigger.props;
   const {
     name,
     card_images: [{ image_url , image_url_small}],
@@ -16,6 +17,15 @@ function MonsterDialog({ card, trigger }) {
     type,
     level
   } = card;
+
+  const triggerEnter = () => {
+    setIsHoverCardContentVisible(true);
+  }
+
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData('application/json', JSON.stringify(card));
+    setIsHoverCardContentVisible(false);
+  }
 
   React.useEffect(() => {
     function dragHandler(e){
@@ -33,10 +43,17 @@ function MonsterDialog({ card, trigger }) {
 
   return (
   <HoverCard.Root openDelay={700} closeDelay={300}>
-      <HoverCard.Trigger asChild className={styles.hoverTrigger}>
-            {React.cloneElement(trigger, {...trigger.props})}
+      <HoverCard.Trigger asChild className={styles.hoverTrigger} onMouseEnter={triggerEnter}>
+      <img
+          ref={dragRef}
+          className={styles.cover}
+          alt={`Monster ${card.name}`}
+          src={image_url}
+          draggable={true}
+          onDragStart={handleDragStart}
+        />
       </HoverCard.Trigger>
-    <HoverCard.Content
+   {isHoverCardContentVisible &&  <HoverCard.Content
         className={styles.hoverCardContent}
         sideOffset={5}
         side="left"
@@ -66,7 +83,7 @@ function MonsterDialog({ card, trigger }) {
             />
         </div>
         <HoverCard.Arrow className={styles.hoverCardArrow} />
-      </HoverCard.Content>
+      </HoverCard.Content> }
     </HoverCard.Root>
   )
 }
