@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./DeckPrototype.module.css";
+import { Info } from "react-feather";
 import { UserDeckContext } from "../UserDeckContext/UserDeckContext";
 
 function DeckPrototype({ background, name }) {
@@ -37,7 +38,7 @@ function DeckPrototype({ background, name }) {
       default:
         break;
     }
-  }
+  };
 
   const currentDeck = getCurrentDeck();
 
@@ -50,12 +51,20 @@ function DeckPrototype({ background, name }) {
       <h1>{name}</h1>
       <div className={styles.deckGrid}>
         {userDeckData[currentDeck].map((card, index) => (
-          <img
+          <div
             key={index}
-            alt="Yugioh card"
-            src={card.card_images[0].image_url}
-            className={styles.droppedItem}
-          />
+            className={styles.droppedItemContainer}
+          >
+            <img
+              key={index}
+              alt="Yugioh card"
+              src={card.card_images[0].image_url}
+              className={styles.droppedItem}
+            />
+            <div className={styles.showButtonContainer}>
+              <Info className={styles.showButton}/>
+            </div>
+          </div>
         ))}
       </div>
     </section>
