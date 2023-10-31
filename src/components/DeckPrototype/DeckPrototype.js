@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./DeckPrototype.module.css";
 import { Info } from "react-feather";
 import { UserDeckContext } from "../UserDeckContext/UserDeckContext";
+import VendorDialog from "../VendorDialog";
 
 function DeckPrototype({ background, name }) {
   const { userDeckData, setUserDeckData } = React.useContext(UserDeckContext);
@@ -55,15 +56,17 @@ function DeckPrototype({ background, name }) {
             key={index}
             className={styles.droppedItemContainer}
           >
-            <img
+             <img
               key={index}
               alt="Yugioh card"
               src={card.card_images[0].image_url}
               className={styles.droppedItem}
             />
+            <VendorDialog card={card}>
             <div className={styles.showButtonContainer}>
               <Info className={styles.showButton}/>
             </div>
+            </VendorDialog>
           </div>
         ))}
       </div>
