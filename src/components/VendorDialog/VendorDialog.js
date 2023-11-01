@@ -6,7 +6,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 function VendorDialog({ card, children }) {
 
   const [non_Expensive_Card, setNon_Expensive_Card] = React.useState({
-    vendor: null,
+    vendor: "",
     price: null,
   });
 
@@ -36,6 +36,19 @@ function VendorDialog({ card, children }) {
     });
   }
 
+  //parses the vendor from data and returns a displayable name for the UI
+  function generateVendorName(vendor){
+    console.log("Vendor from functino: ",vendor);
+    let generated = "";
+
+    for(const char of vendor){
+      if(char === "_") break;
+      generated += char;
+    }
+    generated = generated.charAt(0).toUpperCase() + generated.slice(1).toLowerCase();
+    return generated;
+  }
+
   React.useEffect(() => {
     findNonExpensiveCard(card);
     //eslint-disable-next-line
@@ -56,7 +69,7 @@ function VendorDialog({ card, children }) {
             {Object.keys(card.card_prices[0]).map((key) => {
               return (
                 <p className={styles.vendorContainer} key={key}>
-                  <span className={styles.vendorName}>{key}:</span> {`$ ${card.card_prices[0][key]}`}
+                  <span className={styles.vendorName}>{generateVendorName(key)}:</span> {`$ ${card.card_prices[0][key]}`}
                 </p>
               );
             })}
@@ -64,7 +77,7 @@ function VendorDialog({ card, children }) {
           <div className={styles.nonExpensivePrice}>
             <h1 className={styles.vendorHeadings}>Cheapest Price</h1>
             <p className={styles.vendorContainer}>
-              <span className={styles.vendorName}>{non_Expensive_Card.vendor}:</span> {`$ ${non_Expensive_Card.price}`}
+              <span className={styles.vendorName}>{generateVendorName(non_Expensive_Card.vendor)}:</span> {`$ ${non_Expensive_Card.price}`}
             </p>
           </div>
         </Dialog.Description>
