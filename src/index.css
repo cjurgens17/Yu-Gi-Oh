@@ -44,6 +44,8 @@ h6 {
 #root {
   --spacing: 8px;
   --font-size: 1.15rem;
+  --font-size-medium: 1.35rem;
+  --font-size-large: 2rem;
   --primary-border-radius: 6px;
   --font-weight-medium: 600;
   --primary-outline-offset: .3rem;

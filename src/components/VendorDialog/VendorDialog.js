@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./VendorDialog.module.css";
 import * as Dialog from "@radix-ui/react-dialog";
-// import { Cross2Icon } from '@radix-ui/react-icons';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
 function VendorDialog({ card, children }) {
 
@@ -46,24 +46,36 @@ function VendorDialog({ card, children }) {
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Overlay />
       <Dialog.Content className={styles.DialogContent}>
-        <Dialog.Title>Vendor Prices</Dialog.Title>
+      <div className={styles.cardNameContainer}>
+          <h1>{card.name}</h1>
+        </div>
+        <Dialog.Title className={styles.DialogTitle}>Vendor Prices</Dialog.Title>
         <Dialog.Description className={styles.DialogDescription}>
-          <div>
+          <div className={styles.vendors}>
+            <h1 className={styles.vendorHeadings}>Markets</h1>
             {Object.keys(card.card_prices[0]).map((key) => {
               return (
-                <p key={key}>
-                  {key}: {card.card_prices[0][key]}
+                <p className={styles.vendorContainer} key={key}>
+                  <span className={styles.vendorName}>{key}:</span> {`$ ${card.card_prices[0][key]}`}
                 </p>
               );
             })}
           </div>
-          <div>
-            <p>
-              {non_Expensive_Card.vendor}: {non_Expensive_Card.price}
+          <div className={styles.nonExpensivePrice}>
+            <h1 className={styles.vendorHeadings}>Cheapest Price</h1>
+            <p className={styles.vendorContainer}>
+              <span className={styles.vendorName}>{non_Expensive_Card.vendor}:</span> {`$ ${non_Expensive_Card.price}`}
             </p>
           </div>
         </Dialog.Description>
-        <Dialog.Close />
+        <div className={styles.linkContainer}>
+          <a href={'google.com'}>Link to Cheapest Vendor</a>
+        </div>
+        <Dialog.Close asChild>
+          <button className={styles.IconButton}>
+          <Cross2Icon/>
+          </button>
+        </Dialog.Close>
       </Dialog.Content>
     </Dialog.Root>
   );
