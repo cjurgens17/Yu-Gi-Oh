@@ -3,12 +3,39 @@ import styles from "./VendorDialog.module.css";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from '@radix-ui/react-icons';
 
-function VendorDialog({ card, children }) {
+function VendorDialog({ card, children }) { 
 
   const [non_Expensive_Card, setNon_Expensive_Card] = React.useState({
     vendor: "",
     price: null,
   });
+
+  const [link, setLink] = React.useState('');
+
+  function generateCardLink(cardName){
+    let cardLinkName = "";
+  
+    for(const char of cardName){
+      if(char === " "){
+        cardLinkName += "+";
+      }else{
+        cardLinkName += char;
+      }
+    }
+    return cardLinkName;
+  }
+  
+  const  cardLinkName = generateCardLink(card.name);
+
+  console.log("cardlinkname",cardLinkName)
+
+  const MARKETS = {
+    Cardmarket: `https://www.cardmarket.com/en/YuGiOh/Cards/${cardLinkName}`,
+    Tcgplayer:  `https://tcgplayer.com/product/${cardLinkName}`,
+    Ebay: `https://www.ebay.com/sch/i.html?_nkw=${cardLinkName}&_sop=12`,
+    Amazon: `https://www.amazon.com/s?k=yugioh+abaki&crid=3NNVP00N8EFNP&sprefix=yugioh+${cardLinkName}%2Caps%2C69&ref=nb_sb_noss`,
+    Coolstuffinc: `https://www.coolstuffinc.com/main_searchResults.php?pa=searchOnName&page=1&resultsPerPage=25&q=${cardLinkName}&order=name`
+}
 
   function findNonExpensiveCard(card) {
     const cardPricesObject = card.card_prices[0];
@@ -38,7 +65,7 @@ function VendorDialog({ card, children }) {
 
   //parses the vendor from data and returns a displayable name for the UI
   function generateVendorName(vendor){
-    console.log("Vendor from functino: ",vendor);
+    console.log("Vendor from function: ",vendor);
     let generated = "";
 
     for(const char of vendor){
@@ -51,6 +78,11 @@ function VendorDialog({ card, children }) {
 
   React.useEffect(() => {
     findNonExpensiveCard(card);
+
+    if(non_Expensive_Card.vendor !== ""){
+      const generatedLink = MARKETS[non_Expensive_Card.vendor];
+      setLink(generatedLink);
+    }
     //eslint-disable-next-line
   },[]);
 
@@ -60,7 +92,7 @@ function VendorDialog({ card, children }) {
       <Dialog.Overlay />
       <Dialog.Content className={styles.DialogContent}>
       <div className={styles.cardNameContainer}>
-          <h1>{card.name}</h1>
+          <h1 className={styles.cardName}>{card.name}</h1>
         </div>
         <Dialog.Title className={styles.DialogTitle}>Vendor Prices</Dialog.Title>
         <Dialog.Description className={styles.DialogDescription}>
@@ -82,7 +114,7 @@ function VendorDialog({ card, children }) {
           </div>
         </Dialog.Description>
         <div className={styles.linkContainer}>
-          <a href={'google.com'}>Link to Cheapest Vendor</a>
+          <a href={link} target="_blank" rel="noreferrer">Link to Cheapest Vendor</a>
         </div>
         <Dialog.Close asChild>
           <button className={styles.IconButton}>

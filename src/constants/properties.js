@@ -43,4 +43,4 @@ export const RACE = [
     "Winged Beast",
     "Wyrm",
     "Zombie"
-]
+];
