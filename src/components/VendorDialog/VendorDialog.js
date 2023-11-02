@@ -93,7 +93,6 @@ function VendorDialog({ card, children }) {
 
   //parses the vendor from data and returns a displayable name for the UI
   function generateVendorName(vendor){
-    console.log("Vendor from function: ",vendor);
     let generated = "";
 
     for(const char of vendor){

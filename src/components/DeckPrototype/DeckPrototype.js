@@ -13,6 +13,7 @@ function DeckPrototype({ background, name }) {
   }
 
   function handleDrop(e) {
+    console.log("drop event",e);
     e.preventDefault();
     const droppedData = e.dataTransfer.getData("application/json");
     const droppedObject = JSON.parse(droppedData);
@@ -61,6 +62,10 @@ function DeckPrototype({ background, name }) {
               alt="Yugioh card"
               src={card.card_images[0].image_url}
               className={styles.droppedItem}
+              draggable={true}
+              onDragStart={(e) => {
+                e.dataTransfer.setData('application/json', JSON.stringify(card));
+              }}
             />
             <VendorDialog card={card}>
             <div className={styles.showButtonContainer}>
