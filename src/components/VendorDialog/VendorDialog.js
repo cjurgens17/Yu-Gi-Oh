@@ -10,38 +10,55 @@ function VendorDialog({ card, children }) {
     price: null,
   });
 
-  const [link, setLink] = React.useState('');
-
-  function generateCardLink(cardName){
+  function generateCardLink(cardName, vendor){
     let cardLinkName = "";
+
+    let spaceQuery = "";
+    //create a switch to denote symbol for query parameter depending on the market, becasue each market has different values.
+    //Easy to add or update markets in the future
+    switch(vendor) {
+      case "cardmarket_price":
+        spaceQuery = "+";
+        break;
+      case "ebay_price":
+        spaceQuery = "+";
+        break;
+      case "amazon_price":
+        spaceQuery = "+";
+        break;
+      case "tcgplayer_price":
+        spaceQuery = "+";
+        break;
+      case "coolstuffinc_price":
+        spaceQuery = "+";
+        break;
+      default:
+        break;
+    }
   
     for(const char of cardName){
       if(char === " "){
-        cardLinkName += "+";
+        cardLinkName += spaceQuery;
       }else{
         cardLinkName += char;
       }
     }
     return cardLinkName;
   }
-  
-  const  cardLinkName = generateCardLink(card.name);
-
-  console.log("cardlinkname",cardLinkName)
 
   const MARKETS = {
-    Cardmarket: `https://www.cardmarket.com/en/YuGiOh/Cards/${cardLinkName}`,
-    Tcgplayer:  `https://tcgplayer.com/product/${cardLinkName}`,
-    Ebay: `https://www.ebay.com/sch/i.html?_nkw=${cardLinkName}&_sop=12`,
-    Amazon: `https://www.amazon.com/s?k=yugioh+abaki&crid=3NNVP00N8EFNP&sprefix=yugioh+${cardLinkName}%2Caps%2C69&ref=nb_sb_noss`,
-    Coolstuffinc: `https://www.coolstuffinc.com/main_searchResults.php?pa=searchOnName&page=1&resultsPerPage=25&q=${cardLinkName}&order=name`
+    cardmarket_price: `https://www.cardmarket.com/en/YuGiOh/Products/Singles?idCategory=5&idExpansion=0&searchString=${generateCardLink(card.name,"cardmarket_price")}`,
+    tcgplayer_price:  `https://tcgplayer.com/product/${generateCardLink(card.name,"tcgplayer_price")}`,
+    ebay_price: `https://www.ebay.com/sch/i.html?_nkw=${generateCardLink(card.name,"ebay_price")}&_sop=12`,
+    amazon_price: `https://www.amazon.com/s?k=yugioh+abaki&crid=3NNVP00N8EFNP&sprefix=yugioh+${generateCardLink(card.name,"amazon_price")}%2Caps%2C69&ref=nb_sb_noss`,
+    coolstuffinc_price: `https://www.coolstuffinc.com/main_searchResults.php?pa=searchOnName&page=1&resultsPerPage=25&q=${generateCardLink(card.name,"coolstuffinc_price").toLowerCase()}`
 }
 
   function findNonExpensiveCard(card) {
     const cardPricesObject = card.card_prices[0];
     const cardPricesKeys = Object.keys(cardPricesObject);
 
-    //parse into a  number, current price is a string. Set initial price
+    //parse into a  number, current price is a string. Set initial price and vendor with first in object
     const initialPrice = parseFloat(card.card_prices[0][cardPricesKeys[0]]);
 
     setNon_Expensive_Card({
@@ -49,7 +66,7 @@ function VendorDialog({ card, children }) {
       vendor: cardPricesKeys[0],
       price: initialPrice,
     });
-
+    //find and update the cheapest
     cardPricesKeys.forEach((vendor) => {
       const comparedPrice = parseFloat(card.card_prices[0][vendor]);
 
@@ -78,11 +95,6 @@ function VendorDialog({ card, children }) {
 
   React.useEffect(() => {
     findNonExpensiveCard(card);
-
-    if(non_Expensive_Card.vendor !== ""){
-      const generatedLink = MARKETS[non_Expensive_Card.vendor];
-      setLink(generatedLink);
-    }
     //eslint-disable-next-line
   },[]);
 
@@ -113,9 +125,11 @@ function VendorDialog({ card, children }) {
             </p>
           </div>
         </Dialog.Description>
+        {non_Expensive_Card.vendor !== "" && 
         <div className={styles.linkContainer}>
-          <a href={link} target="_blank" rel="noreferrer">Link to Cheapest Vendor</a>
+          <a href={MARKETS[non_Expensive_Card.vendor]} target="_blank" rel="noreferrer">{generateVendorName(non_Expensive_Card.vendor)}</a>
         </div>
+        }
         <Dialog.Close asChild>
           <button className={styles.IconButton}>
           <Cross2Icon/>
