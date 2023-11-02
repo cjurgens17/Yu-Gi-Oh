@@ -48,9 +48,9 @@ function VendorDialog({ card, children }) {
 
   const MARKETS = {
     cardmarket_price: `https://www.cardmarket.com/en/YuGiOh/Products/Singles?idCategory=5&idExpansion=0&searchString=${generateCardLink(card.name,"cardmarket_price")}`,
-    tcgplayer_price:  `https://tcgplayer.com/product/${generateCardLink(card.name,"tcgplayer_price")}`,
+    tcgplayer_price:  `https://www.tcgplayer.com/search/yugioh/product?productLineName=yugioh&q=${generateCardLink(card.name,'tcgplayer_price').toLowerCase()}&view=grid`,
     ebay_price: `https://www.ebay.com/sch/i.html?_nkw=${generateCardLink(card.name,"ebay_price")}&_sop=12`,
-    amazon_price: `https://www.amazon.com/s?k=yugioh+abaki&crid=3NNVP00N8EFNP&sprefix=yugioh+${generateCardLink(card.name,"amazon_price")}%2Caps%2C69&ref=nb_sb_noss`,
+    amazon_price: `https://www.amazon.com/s?k=yugioh+${generateCardLink(card.name,"amazon_price").toLowerCase()}&crid=12P6Z0DRFN30O&sprefix=yugioh+${generateCardLink(card.name,"amazon_price").toLowerCase()}%2Caps%2C43&ref=nb_sb_noss`,
     coolstuffinc_price: `https://www.coolstuffinc.com/main_searchResults.php?pa=searchOnName&page=1&resultsPerPage=25&q=${generateCardLink(card.name,"coolstuffinc_price").toLowerCase()}`
 }
 
@@ -61,22 +61,33 @@ function VendorDialog({ card, children }) {
     //parse into a  number, current price is a string. Set initial price and vendor with first in object
     const initialPrice = parseFloat(card.card_prices[0][cardPricesKeys[0]]);
 
-    setNon_Expensive_Card({
-      ...non_Expensive_Card,
-      vendor: cardPricesKeys[0],
-      price: initialPrice,
+    //functional update
+    setNon_Expensive_Card((prevNonExpensiveCard) => {
+      return {
+        ...prevNonExpensiveCard,
+        vendor: cardPricesKeys[0],
+        price: initialPrice,
+      };
     });
+
     //find and update the cheapest
     cardPricesKeys.forEach((vendor) => {
+
       const comparedPrice = parseFloat(card.card_prices[0][vendor]);
 
-      if (comparedPrice < non_Expensive_Card.price) {
-        setNon_Expensive_Card({
-          ...non_Expensive_Card,
-          vendor: vendor,
-          price: comparedPrice,
-        });
-      }
+      //checking state for prev card and comparing to current
+      //functional update
+      setNon_Expensive_Card((prevNonExpensiveCard) => {
+        if (comparedPrice < prevNonExpensiveCard.price) {
+          return {
+            ...prevNonExpensiveCard,
+            vendor: vendor,
+            price: comparedPrice,
+          };
+        }else {
+          return prevNonExpensiveCard;
+        }
+      })
     });
   }
 
