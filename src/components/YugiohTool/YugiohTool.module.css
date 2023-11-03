@@ -20,14 +20,18 @@
     grid-area: filter;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+
     height: 100%;
     width: 100%;
     gap: var(--spacing);
-    border: 2px solid black;
     border-radius: var(--primary-border-radius);
     padding: var(--spacing);
-    box-shadow: var(--shadow-elevation-low);
+  }
+
+  .filterContent {
+    display: flex;
+    gap: 2rem;
   }
   
   .cardScroll {
@@ -47,6 +51,8 @@
     position: sticky;
     top: 0;
     right: 0;
+
+    margin-top: -0.5rem;
   }
   
   .header {

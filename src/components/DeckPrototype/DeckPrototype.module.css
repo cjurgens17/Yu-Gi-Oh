@@ -23,15 +23,15 @@
 
 /*Flexible styles - can change them up to what we need or add more in the future depending on what we want from the deck */
 .mainDeck {
-    background-color: #7D7C7C;
+    background-color: #D5A192;
 }
 
 .sideDeck {
-    background-color: #7D7C7C;
+    background-color: #D5A192;
 }
 
 .extraDeck {
-    background-color: #7D7C7C;
+    background-color: #D5A192;
 }
 
 /* styles for droppped image/item */
@@ -42,6 +42,10 @@
     box-shadow: var(--shadow-elevation-high);
     will-change: opacity;
     transition: opacity 0.3s ease;
+}
+
+.droppedItem:hover {
+    cursor:pointer;
 }
 
 .droppedItemContainer:hover .droppedItem {

@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './Header.module.css';
 
 function Header(){
     return (
 
      <div>
-        <h1>Yu-Gi-Oh Deck Builder</h1>
+        <h1 className={styles.header}>Yu-Gi-Oh Deck Tool</h1>
      </div>
     );
 }

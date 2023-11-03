@@ -45,7 +45,7 @@ h6 {
   --spacing: 8px;
   --font-size: 1.15rem;
   --font-size-medium: 1.35rem;
-  --font-size-large: 2rem;
+  --font-size-large: 4rem;
   --primary-border-radius: 6px;
   --font-weight-medium: 600;
   --primary-outline-offset: .3rem;
@@ -100,7 +100,8 @@ code {
 .selectInput {
   border-radius: var(--primary-border-radius);
   width: 100%;
-  border: 1px solid lightgrey;
+  border: 2px solid black;
+  box-shadow: var(--shadow-elevation-low);
 }
 
 .primaryButton {

@@ -17,7 +17,7 @@ li {
 }
 
 ::-webkit-scrollbar {
-    width: 0.2rem;
+    width: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -27,4 +27,5 @@ li {
 
 ::-webkit-scrollbar-track:hover {
     background: #666;
+    cursor: pointer;
 }

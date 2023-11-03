@@ -7,6 +7,7 @@ import './App.css';
 function App() {
 
   return (
+    <div className="background">
     <YuGiOhCardProvider>
       <header className="header">
         <Header/>
@@ -15,6 +16,7 @@ function App() {
         <YugiohTool/>
         </div>
     </YuGiOhCardProvider>
+    </div>
   );
 }
 

@@ -33,10 +33,12 @@ function YugiohTool() {
         ></FilterModal>
       )}
       <header className={styles.filter}>
+        <div className={styles.filterContent}>
         <DeckName />
         <Import/>
         <Export/>
         <Reset/>
+        </div>
       </header>
       <main className={styles.details}>
         {/* <Carousel></Carousel> */}

@@ -48,7 +48,7 @@ function DeckPrototype({ background, name }) {
     <section
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className={deckStyles}
+      className={`${deckStyles} `}
     >
       <h1>{name}</h1>
       <div className={styles.deckGrid}>
