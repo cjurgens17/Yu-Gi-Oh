@@ -20,8 +20,9 @@ function CardScrollView({ showFiltered, filteredCards }) {
   React.useEffect(() => {
 
     const loadMoreCards = () => {
-      const nextSetOfCards = numOfCardsToShow + incrementCardsToShow;
-      setNumOfCardsToShow(nextSetOfCards);
+      setNumOfCardsToShow((prevNumOfCardsToShow)=> {
+          return prevNumOfCardsToShow + incrementCardsToShow;
+      });
     };
 
     const options = {
@@ -41,10 +42,10 @@ function CardScrollView({ showFiltered, filteredCards }) {
     };
 
     const observer = new IntersectionObserver(handleInfiniteScroll, options);
-
-    if (cardContainerRef.current) {
+    if(cardContainerRef.current){
       observer.observe(cardContainerRef.current);
     }
+    
 
     return () => {
       observer.disconnect();
@@ -53,7 +54,7 @@ function CardScrollView({ showFiltered, filteredCards }) {
 
   return (
     <div className={styles.container}>
-       <ol ref={cardContainerRef}>
+       <ol>
       {cardsToShow
         .slice(0, numOfCardsToShow)
         .map((card, index) => (
