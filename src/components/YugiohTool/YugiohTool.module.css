@@ -48,10 +48,6 @@
     gap: var(--spacing);
     height: 100vh;
 
-    position: sticky;
-    top: 0;
-    right: 0;
-
     margin-top: -0.5rem;
   }
   
@@ -86,5 +82,11 @@
     grid-auto-rows: auto;
     grid-template-columns: repeat(auto-fill, 1fr);
     gap: var(--spacing);
+  }
+
+  .toolWrapper {
+    position: sticky;
+    top: 0px;
+    height: 100%;
   }
   

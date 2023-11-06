@@ -22,7 +22,9 @@ function YugiohTool() {
   const [filteredCards, setFilteredCards] = React.useState([]);
 
   return (
+    <div className={styles.toolWrapper}>
     <UserDeckProvider>
+      
     <div className={styles.gridWrapper}>
       {filterModal && (
         <FilterModal
@@ -42,9 +44,11 @@ function YugiohTool() {
       </header>
       <main className={styles.details}>
         {/* <Carousel></Carousel> */}
+       
           <MainDeck/>
           <SideDeck/>
           <ExtraDeck/>
+          
       </main>
       <aside className={styles.cardScroll}>
         
@@ -67,6 +71,7 @@ function YugiohTool() {
       </aside>
     </div>
     </UserDeckProvider>
+    </div>
   );
 }
 
