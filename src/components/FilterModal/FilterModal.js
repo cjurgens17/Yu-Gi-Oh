@@ -5,7 +5,7 @@ import FocusLock from "react-focus-lock";
 import styles from "./FilterModal.module.css";
 import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
 
-function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilteredCards}) {
+function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilteredCards, setNumOfCardsToShow}) {
   const id = React.useId();
   const [name, setName] = React.useState("");
   const [race, setRace] = React.useState("");
@@ -54,6 +54,9 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
     setType("");
     setRace("");
     setName("");
+    setFilteredCards([]);
+    setNumOfCardsToShow(5);
+
   }
 
   return (

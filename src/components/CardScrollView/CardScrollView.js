@@ -9,10 +9,9 @@ import { YuGiOhCardContext } from "../YuGiOhCardsContext/YuGiOhCardsContext";
     image_url_cropped: -- cropped version of the large image
     image_url_small: smaller size
 */
-function CardScrollView({ showFiltered, filteredCards }) {
+function CardScrollView({ showFiltered, filteredCards, numOfCardsToShow, setNumOfCardsToShow }) {
 
   const { yuGiOhCards } = React.useContext(YuGiOhCardContext);
-  const [numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
   const cardContainerRef = React.useRef(null);
   let cardsToShow = showFiltered ? filteredCards : yuGiOhCards;
   const incrementCardsToShow = 5;
@@ -24,6 +23,8 @@ function CardScrollView({ showFiltered, filteredCards }) {
           return prevNumOfCardsToShow + incrementCardsToShow;
       });
     };
+
+    console.log("num cards to show",numOfCardsToShow);
 
     const options = {
       root: null,
@@ -46,11 +47,11 @@ function CardScrollView({ showFiltered, filteredCards }) {
       observer.observe(cardContainerRef.current);
     }
     
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [numOfCardsToShow]);
+    //Keeping observer connected to that upon reset of filtered cards, infinte scrolling continus to work
+    // return () => {
+    //   observer.disconnect();
+    // };
+  }, [numOfCardsToShow,setNumOfCardsToShow]);
 
   return (
     <div className={styles.container}>

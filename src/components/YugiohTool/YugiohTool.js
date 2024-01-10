@@ -20,6 +20,7 @@ function YugiohTool() {
   const [filterModal, setFilterModal] = React.useState(false);
   const [showFiltered, setShowFiltered] = React.useState(false);
   const [filteredCards, setFilteredCards] = React.useState([]);
+  const [numOfCardsToShow, setNumOfCardsToShow] = React.useState(5);
 
   return (
     <div className={styles.toolWrapper}>
@@ -32,6 +33,7 @@ function YugiohTool() {
           setFilterModal={setFilterModal}
           filteredCards={filteredCards}
           setFilteredCards={setFilteredCards}
+          setNumOfCardsToShow={setNumOfCardsToShow}
         ></FilterModal>
       )}
       <header className={styles.filter}>
@@ -66,6 +68,8 @@ function YugiohTool() {
           <CardScrollView
             showFiltered={showFiltered}
             filteredCards={filteredCards}
+            numOfCardsToShow={numOfCardsToShow}
+            setNumOfCardsToShow={setNumOfCardsToShow}
           />  
         </section>
       </aside>
