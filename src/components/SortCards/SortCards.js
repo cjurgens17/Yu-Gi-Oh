@@ -10,6 +10,7 @@ function SortCards() {
 
   function sortByProperty(property) {
     property = property.toLowerCase();
+    console.log(property)
     let nextYuGiOhCards;
 
     switch (property) {
@@ -19,7 +20,15 @@ function SortCards() {
         );
         break;
       case "atk":
+        nextYuGiOhCards = [...yuGiOhCards].sort(
+          (a, b) => a[`${property}`] - b[`${property}`]
+        );
+        break;
       case "def":
+        nextYuGiOhCards = [...yuGiOhCards].sort(
+          (a, b) => a[`${property}`] - b[`${property}`]
+        );
+        break;
       case "level":
         nextYuGiOhCards = [...yuGiOhCards].sort(
           (a, b) => a[`${property}`] - b[`${property}`]
@@ -33,9 +42,9 @@ function SortCards() {
   }
 
   return (
-      <section className={styles.sortRow}>
+    <section className={styles.sortRow}>
       <select
-      className="selectInput"
+        className="selectInput"
         value={property}
         onChange={(e) => {
           const nextProperty = e.target.value;
@@ -52,7 +61,7 @@ function SortCards() {
         })}
       </select>
       <select
-      className="selectInput"
+        className="selectInput"
         value={order}
         onChange={(e) => {
           const nextOrder = e.target.value;

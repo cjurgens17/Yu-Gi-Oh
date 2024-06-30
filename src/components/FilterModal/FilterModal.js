@@ -55,8 +55,6 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
     setRace("");
     setName("");
     setFilteredCards([]);
-    setNumOfCardsToShow(5);
-
   }
 
   return (
