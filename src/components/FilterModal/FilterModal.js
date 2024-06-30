@@ -133,5 +133,5 @@ function FilterModal({ setFilterModal, setShowFiltered, filteredCards, setFilter
     </FocusLock>
   );
 }
-
+// Need up update race and type
 export default FilterModal;
